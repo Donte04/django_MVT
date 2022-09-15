@@ -1,0 +1,22 @@
+{% extends "classic_app/site.html" %}
+{% block title %} {{file.name}} {% endblock %}
+{% block body %}
+    <h1>{{file.name}}</h1>
+    <form action="{% url 'edit' file.id %}" method="POST">
+        {% csrf_token %}
+        <p>Uploaded: {{file.upload_timestamp}}</p>
+        <label for="name">File name:</label>
+        <input type="text" name="name" id="name" placeholder={{file.name}} />
+        <label for="type">File type:</label>
+        <input type="text" name="type" id="type" placeholder={{file.file_type}} />
+        <div>
+        <button>Update</button>
+        </div>
+    </form>
+    <form action="{% url 'delete' file.id %}">
+        {% csrf_token %}
+        <button>Delete</button>
+    </form>
+
+    <p>All <a href={% url 'classic_app' %}>files</a></p>
+{% endblock %}
